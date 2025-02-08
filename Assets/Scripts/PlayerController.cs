@@ -1,8 +1,10 @@
 using UnityEngine;
 // tiny change
 using UnityEngine.Rendering.Universal;
+using UnityEditor;
 
 public class PlayerController : MonoBehaviour{
+    public GameObject respawnPoint;
 
     public int power = 1;
     public float moveSpeed = 5f;
@@ -12,6 +14,10 @@ public class PlayerController : MonoBehaviour{
     public Battery battery;
     public bool LeftRightUnlocked = true;
     public bool JumpUnlocked = true;
+
+    public GameObject deathParticles;
+
+    private int timeToRespawn = 0;
     [SerializeField] private Vector2 groundCheckOffset;
     [SerializeField] private Vector2 groundCheckSize;
     private LayerMask groundMask;
@@ -20,6 +26,7 @@ public class PlayerController : MonoBehaviour{
     void Start()
     {
         battery = new Battery(power);
+        groundMask = LayerMask.GetMask("Ground") + LayerMask.GetMask("Default");
     }
     void Update()
     {
@@ -27,7 +34,9 @@ public class PlayerController : MonoBehaviour{
         if (LeftRightUnlocked)
         {
         float moveInput = Input.GetAxis("Horizontal");
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+        if (moveInput != 0) {
+            rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+        }
         }
 
         if (JumpUnlocked && Input.GetButtonDown("Jump") && Physics2D.OverlapBox(rb.position + groundCheckOffset, groundCheckSize, 0f, groundMask))
@@ -37,11 +46,38 @@ public class PlayerController : MonoBehaviour{
             // rb.rotation = rb.rotation + 90;
 
         }
+
+        if (timeToRespawn == 1){
+            transform.position = respawnPoint.transform.position;
+        }
+
+        if (timeToRespawn > 0){
+            timeToRespawn--;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.CompareTag("Spike")){
+            Die();
+        }
+    }
+
+
+    //Currently issues with spawning multiple particles when landing on multiple spikes - Im working on it
+    void Die(){
         
-        // TESTING GLOBAL LIGHTING -- AARAV
-        // if (Input.GetKeyDown(KeyCode.Space)) 
-        // {
-        //     globalLight.intensity = 1 - globalLight.intensity;
-        // }
+        GameObject particles = Instantiate(deathParticles);
+        if (timeToRespawn == 0){
+            particles.transform.position = transform.position;
+        }
+        timeToRespawn = 15;
+        
+        
+        
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(rb.position + groundCheckOffset, groundCheckSize);
     }
 }
