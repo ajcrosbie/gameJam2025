@@ -1,24 +1,27 @@
 using UnityEngine;
 // tiny change
-public class PlayerController : MonoBehaviour
-{
+using UnityEngine.Rendering.Universal;
+
+public class PlayerController : MonoBehaviour{
 
     public int power = 1;
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
+    public Light2D globalLight;
     public Rigidbody2D rb;
     public Battery battery;
     public bool LeftRightUnlocked = true;
     public bool JumpUnlocked = true;
 
-    private bool isGrounded = true;
+    [SerializeField] private Vector2 groundCheckOffset;
+    [SerializeField] private Vector2 groundCheckSize;
+    private LayerMask groundMask;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         battery = new Battery(power);
     }
-
-    // Update is called once per frame
     void Update()
     {
         // Handle horizontal movement
@@ -28,28 +31,18 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
         }
 
-        if (JumpUnlocked && isGrounded && Input.GetButtonDown("Jump")){
+        if (JumpUnlocked && Input.GetButtonDown("Jump") && Physics2D.OverlapBox(rb.position + groundCheckOffset, groundCheckSize, 0f, groundMask))
+        {
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            // rb.rotation = rb.rotation + 90;
 
         }
-    }
-
-        void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Check if the player is on the ground
-        if (collision.gameObject.CompareTag("Ground"))
+        
+        // TESTING GLOBAL LIGHTING -- AARAV
+        if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        // Check if the player is no longer on the ground
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
+            globalLight.intensity = 1 - globalLight.intensity;
         }
     }
 }
