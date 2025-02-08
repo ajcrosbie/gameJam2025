@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour{
     public bool LeftRightUnlocked = true;
     public bool JumpUnlocked = true;
 
+    public GameObject deathParticles;
+
     [SerializeField] private Vector2 groundCheckOffset;
     [SerializeField] private Vector2 groundCheckSize;
     private LayerMask groundMask;
@@ -41,13 +43,18 @@ public class PlayerController : MonoBehaviour{
         }
     }
 
-    void OnCollisionEnter(Collision collision){
+    void OnCollisionEnter2D(Collision2D collision){
         if (collision.gameObject.CompareTag("Spike")){
             Die();
         }
     }
 
+
+    //Currently issues with spawning multiple particles when landing on multiple spikes - Im working on it
     void Die(){
+        GameObject particles = Instantiate(deathParticles);
+        particles.transform.position = transform.position;
+        
         transform.position = respawnPoint.transform.position;
     }
 }
