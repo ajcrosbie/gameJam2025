@@ -39,12 +39,6 @@ public class PlayerController : MonoBehaviour{
             // rb.rotation = rb.rotation + 90;
 
         }
-        
-        // TESTING GLOBAL LIGHTING -- AARAV
-        if (Input.GetKeyDown(KeyCode.Space)) 
-        {
-            globalLight.intensity = 1 - globalLight.intensity;
-        }
     }
 
     void OnCollisionEnter(Collision collision){
