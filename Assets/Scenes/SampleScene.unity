@@ -6802,9 +6802,41 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -8
       objectReference: {fileID: 0}
+    - target: {fileID: 4285733316319558089, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285733316319558089, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285733316319558089, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285733316319558089, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285733316319558089, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285733316319558089, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285733316319558089, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7454853293652589152, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
       propertyPath: m_Name
       value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919535576744586950, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
+      propertyPath: doorSpeed
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 8170347606014837351, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
       propertyPath: m_LocalPosition.x
