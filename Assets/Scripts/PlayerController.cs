@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour{
     public GameObject deathParticles;
 
     private int timeToRespawn = 0;
-
     [SerializeField] private Vector2 groundCheckOffset;
     [SerializeField] private Vector2 groundCheckSize;
     private LayerMask groundMask;
