@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour{
         if (timeToRespawn == 0){
             particles.transform.position = transform.position;
         }
-        timeToRespawn = 30;
+        timeToRespawn = 15;
         
         
         
