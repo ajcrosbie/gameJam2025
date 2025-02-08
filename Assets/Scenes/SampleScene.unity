@@ -932,6 +932,7 @@ MonoBehaviour:
   Power: 1
   moveSpeed: 5
   jumpForce: 10
+  globalLight: {fileID: 0}
   rb: {fileID: 1106791477}
   LeftRightUnlocked: 1
   JumpUnlocked: 1
@@ -5913,6 +5914,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  groundCheckOffset: {x: 0, y: -0.5}
+  groundCheckSize: {x: 0.75, y: 0.5}
 --- !u!1 &1509345019
 GameObject:
   m_ObjectHideFlags: 0
@@ -6524,8 +6527,8 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FalloffIntensity: 0.554
+  m_Color: {r: 0.62895215, g: 0.9716981, b: 0.43543077, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
