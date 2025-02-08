@@ -5914,8 +5914,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  groundCheckOffset: {x: 0, y: -0.5}
-  groundCheckSize: {x: 0.75, y: 0.5}
 --- !u!1 &1509345019
 GameObject:
   m_ObjectHideFlags: 0
