@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class ButtonDoor : MonoBehaviour
 {
+    public AudioSource sound;
+    public AudioClip audioClip;
+
     private bool moved = false;
 
     private bool isPressed = false;
@@ -32,7 +35,9 @@ public class ButtonDoor : MonoBehaviour
     void OnCollisionEnter2D(Collision2D triggerObject){
         isPressed = true;
         sr.sprite = pressedSprite;
+        sound.PlayOneShot(audioClip);
     }
-    
 }
+    
+
 
