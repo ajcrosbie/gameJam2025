@@ -43,6 +43,12 @@ public class PlayerController : MonoBehaviour{
         }
     }
 
+    void OnCollisionEnter(Collision collision){
+        if (collision.gameObject.CompareTag("Spike")){
+            Die();
+        }
+    }
+
     void Die(){
         transform.position = respawnPoint.transform.position;
     }
