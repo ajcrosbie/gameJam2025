@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour{
     public Battery battery;
     public bool LeftRightUnlocked = true;
     public bool JumpUnlocked = true;
-
     [SerializeField] private Vector2 groundCheckOffset;
     [SerializeField] private Vector2 groundCheckSize;
     private LayerMask groundMask;
@@ -40,9 +39,9 @@ public class PlayerController : MonoBehaviour{
         }
         
         // TESTING GLOBAL LIGHTING -- AARAV
-        if (Input.GetKeyDown(KeyCode.Space)) 
-        {
-            globalLight.intensity = 1 - globalLight.intensity;
-        }
+        // if (Input.GetKeyDown(KeyCode.Space)) 
+        // {
+        //     globalLight.intensity = 1 - globalLight.intensity;
+        // }
     }
 }
