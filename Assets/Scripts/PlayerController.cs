@@ -1,6 +1,7 @@
 using UnityEngine;
 // tiny change
 using UnityEngine.Rendering.Universal;
+using UnityEditor;
 
 public class PlayerController : MonoBehaviour{
     public GameObject respawnPoint;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour{
     void Start()
     {
         battery = new Battery(power);
+        groundMask = LayerMask.GetMask("Ground") + LayerMask.GetMask("Default");
     }
     void Update()
     {
@@ -58,5 +60,10 @@ public class PlayerController : MonoBehaviour{
         particles.transform.position = transform.position;
         
         transform.position = respawnPoint.transform.position;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(rb.position + groundCheckOffset, groundCheckSize);
     }
 }
