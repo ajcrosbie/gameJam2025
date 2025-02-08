@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
         if (JumpUnlocked && isGrounded && Input.GetButtonDown("Jump")){
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            // rb.rotation = rb.rotation + 90;
 
         }
         
