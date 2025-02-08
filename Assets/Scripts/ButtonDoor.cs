@@ -6,6 +6,9 @@ public class ButtonDoor : MonoBehaviour
 
     private bool isPressed = false;
 
+    public float doorSpeed = 0.02f;
+    public bool horizontal = false;
+
     public GameObject door;
     private SpriteRenderer sr;
     public Sprite pressedSprite;
@@ -18,7 +21,11 @@ public class ButtonDoor : MonoBehaviour
     void Update(){
         if (isPressed && !moved){
             transform.position = transform.position;
-            door.transform.position = new Vector3(door.transform.position.x, door.transform.position.y + 0.1f, door.transform.position.z);
+            if (horizontal){
+                door.transform.localPosition = new Vector3(door.transform.localPosition.x + doorSpeed, door.transform.localPosition.y, door.transform.localPosition.z);
+            }else{
+                door.transform.localPosition = new Vector3(door.transform.localPosition.x, door.transform.localPosition.y - doorSpeed, door.transform.localPosition.z);
+            }
         }
     }
 

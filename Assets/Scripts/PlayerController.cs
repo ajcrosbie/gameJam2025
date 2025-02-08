@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -53,8 +54,8 @@ public class PlayerController : MonoBehaviour
         // Respawn logic if the time to respawn has reached 1
         if (timeToRespawn == 1)
         {
-            transform.position = respawnPoint.transform.position;
-        }
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);        }
 
         if (timeToRespawn > 0)
         {
@@ -78,7 +79,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject particles = Instantiate(deathParticles, transform.position, Quaternion.identity);
         }
-        timeToRespawn = 15;  // Set respawn time
+        timeToRespawn = 30;  // Set respawn time
     }
 
     // Visualize the ground check area in the editor
