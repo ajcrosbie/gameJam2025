@@ -3,11 +3,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public int Power = 1;
+    public int power = 1;
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
     public Rigidbody2D rb;
-
+    public Battery battery;
     public bool LeftRightUnlocked = true;
     public bool JumpUnlocked = true;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        battery = new Battery(power);
     }
 
     // Update is called once per frame
