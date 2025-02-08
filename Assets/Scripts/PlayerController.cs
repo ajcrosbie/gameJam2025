@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour{
 
     public GameObject deathParticles;
 
+    private int timeToRespawn = 0;
+
     [SerializeField] private Vector2 groundCheckOffset;
     [SerializeField] private Vector2 groundCheckSize;
     private LayerMask groundMask;
@@ -43,6 +45,14 @@ public class PlayerController : MonoBehaviour{
             // rb.rotation = rb.rotation + 90;
 
         }
+
+        if (timeToRespawn == 1){
+            transform.position = respawnPoint.transform.position;
+        }
+
+        if (timeToRespawn > 0){
+            timeToRespawn--;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision){
@@ -54,9 +64,14 @@ public class PlayerController : MonoBehaviour{
 
     //Currently issues with spawning multiple particles when landing on multiple spikes - Im working on it
     void Die(){
-        GameObject particles = Instantiate(deathParticles);
-        particles.transform.position = transform.position;
         
-        transform.position = respawnPoint.transform.position;
+        GameObject particles = Instantiate(deathParticles);
+        if (timeToRespawn == 0){
+            particles.transform.position = transform.position;
+        }
+        timeToRespawn = 30;
+        
+        
+        
     }
 }
