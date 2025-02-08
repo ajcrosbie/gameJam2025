@@ -37,15 +37,17 @@ public class Battery : MonoBehaviour
         {
             if (powers[i] != null)
             {
-                powers[i].drawBars(i);
+                powers[i].drawBars(i, 0);  // PowerTypeOffset = 0 since only one type for now
             }
         }
     }
 
     public bool addPower(int index)
     {
+        Debug.Log(index);
         if (index >= powers.Length || powers[index] == null || energyPool <= 0)
         {
+            Debug.Log(index);
             return false;
         }
 
@@ -54,6 +56,7 @@ public class Battery : MonoBehaviour
             energyPool--;  // Reduce available energy
             return true;
         }
+        Debug.Log(index);
 
         return false;
     }

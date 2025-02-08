@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject respawnPoint;
 
-    public int power = 1;              // Power slots for Battery
+    public int power = 10;              // Power slots for Battery
     public float moveSpeed = 5f;       // Movement speed
     public float jumpForce = 7f;       // Jump force
     public Light2D globalLight;        // Global light reference
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         }
         for (int i = 0; i < 9; i++)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i ))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
             {
                 battery.addPower(i);  // Calls battery boost on the corresponding power slot
             }
