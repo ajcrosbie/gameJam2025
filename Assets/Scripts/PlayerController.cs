@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public int Power = 1;
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
+    public Light2D globalLight;
     public Rigidbody2D rb;
 
     public bool LeftRightUnlocked = true;
@@ -32,6 +34,12 @@ public class PlayerController : MonoBehaviour
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 
+        }
+        
+        // TESTING GLOBAL LIGHTING -- AARAV
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            globalLight.intensity = 1 - globalLight.intensity;
         }
     }
 
