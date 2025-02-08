@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject respawnPoint;
 
     public int Power = 1;
     public float moveSpeed = 5f;
@@ -42,6 +43,9 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+        } else if (collision.gameObject.CompareTag("Spike"))
+        {
+            Die();
         }
     }
 
@@ -52,5 +56,9 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    void Die(){
+        transform.position = respawnPoint.transform.position;
     }
 }
