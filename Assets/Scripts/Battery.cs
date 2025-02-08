@@ -1,77 +1,88 @@
 using UnityEngine;
 
-public class Battery
+public class Battery : MonoBehaviour
 {
-    public int maxBatteries;
-    public int usedBatteries;
-    private Power[] powers;
+    public int maxBatteries;  // Number of power slots
+    public Power[] powers;    // Array to store the powers
 
-    public Battery(int power)
+    // ✅ Constructor no longer required - initialization will happen in Start()
+    
+    // Initialize the battery with a given number of power slots and their on/off states
+    public void InitializeBattery(int powerSlots, bool[] isOnList)
     {
-        maxBatteries = power;
-        powers = new Power[maxBatteries]; // Initialize array
-        usedBatteries = 0;
-    }
-
-    private void draw()
-    {
-        if (powers == null) return; // Safety check
+        maxBatteries = powerSlots;
+        powers = new Power[maxBatteries];  // Initialize the array to hold the Power objects
         
-        for (int i = 0; i < powers.Length; i++)
+        // Initialize each Power based on the isOnList
+        for (int i = 0; i < maxBatteries; i++)
         {
-            if (powers[i] != null) // Check for null before calling method
+            if (i < isOnList.Length)
             {
-                powers[i].drawBars(i); // Offset each power's bars horizontally
+                bool isOn = isOnList[i];  // Set the "on" state from the list
+                powers[i] = new HorizontalMovement(5, isOn);  // Example Power subclass
+            }
+            else
+            {
+                // Default case: Create power with default settings
+                powers[i] = new HorizontalMovement(5, true);  // Default is "on"
             }
         }
     }
 
-    private void indicateInvalidOpperation()
+    private void OnGUI()
     {
-        Debug.LogError("Invalid operation attempted on Battery.");
+        draw();
+    }
+
+    private void draw()
+    {
+        if (powers == null) return;
+
+        for (int i = 0; i < powers.Length; i++)
+        {
+            if (powers[i] != null)
+            {
+                powers[i].drawBars(i);  // Draw each power's bars with an offset
+            }
+        }
+    }
+
+    private void indicateInvalidOperation()
+    {
+        Debug.LogError("Invalid Operation!");
     }
 
     public int addPower(int i)
     {
-        if (i < 0 || i >= powers.Length || powers[i] == null)
+        if (i >= powers.Length || powers[i] == null)
         {
-            indicateInvalidOpperation();
+            indicateInvalidOperation();
             return 0;
         }
-        if (usedBatteries == maxBatteries)
-        {
-            indicateInvalidOpperation();
-            return powers[i].getMagnitude();
-        }
+
         if (powers[i].addPower())
         {
-            usedBatteries++;
-            return powers[i].getMagnitude();
+            return (int)powers[i].getMagnitude();
         }
-        indicateInvalidOpperation();
-        return powers[i].getMagnitude();
+
+        indicateInvalidOperation();
+        return (int)powers[i].getMagnitude();
     }
 
     public int removePower(int i)
     {
-        if (i < 0 || i >= powers.Length || powers[i] == null)
+        if (i >= powers.Length || i < 0 || powers[i] == null)
         {
-            indicateInvalidOpperation();
+            indicateInvalidOperation();
             return 0;
         }
-        if (usedBatteries == 0)
-        {
-            indicateInvalidOpperation();
-            return powers[i].getMagnitude();
-        }
+
         if (powers[i].remPower())
         {
-            usedBatteries--;
-            return powers[i].getMagnitude();
+            return (int)powers[i].getMagnitude();
         }
-        indicateInvalidOpperation();
-        return powers[i].getMagnitude();
+
+        indicateInvalidOperation();
+        return (int)powers[i].getMagnitude();
     }
-
-
 }

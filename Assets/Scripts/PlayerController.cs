@@ -1,81 +1,87 @@
 using UnityEngine;
-// tiny change
 using UnityEngine.Rendering.Universal;
 using UnityEditor;
 
-public class PlayerController : MonoBehaviour{
+public class PlayerController : MonoBehaviour
+{
     public GameObject respawnPoint;
 
-    public int power = 1;
-    public float moveSpeed = 5f;
-    public float jumpForce = 7f;
-    public Light2D globalLight;
-    public Rigidbody2D rb;
-    public Battery battery;
+    public int power = 1;              // Power slots for Battery
+    public float moveSpeed = 5f;       // Movement speed
+    public float jumpForce = 7f;       // Jump force
+    public Light2D globalLight;        // Global light reference
+    public Rigidbody2D rb;             // Rigidbody2D component
+    public Battery battery;            // Reference to the Battery component
     public bool LeftRightUnlocked = true;
     public bool JumpUnlocked = true;
 
-    public GameObject deathParticles;
+    public GameObject deathParticles;  // Death particle effect
 
-    private int timeToRespawn = 0;
-    [SerializeField] private Vector2 groundCheckOffset;
-    [SerializeField] private Vector2 groundCheckSize;
-    private LayerMask groundMask;
+    private int timeToRespawn = 0;     // Time before respawn
+    [SerializeField] private Vector2 groundCheckOffset;    // Ground check offset
+    [SerializeField] private Vector2 groundCheckSize;      // Ground check size
+    private LayerMask groundMask;      // Ground mask for collision checks
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        battery = new Battery(power);
+        // Add the Battery component to the Player and initialize it
+        battery = gameObject.AddComponent<Battery>();
+        battery.InitializeBattery(power, new bool[] { true }); // Initialize battery with the powers
+
         groundMask = LayerMask.GetMask("Ground") + LayerMask.GetMask("Default");
     }
+
     void Update()
     {
         // Handle horizontal movement
         if (LeftRightUnlocked)
         {
-        float moveInput = Input.GetAxis("Horizontal");
-        if (moveInput != 0) {
-            rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
-        }
+            float moveInput = Input.GetAxis("Horizontal");
+            if (moveInput != 0)
+            {
+                rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y); // Correcting to `velocity`
+            }
         }
 
+        // Handle jumping
         if (JumpUnlocked && Input.GetButtonDown("Jump") && Physics2D.OverlapBox(rb.position + groundCheckOffset, groundCheckSize, 0f, groundMask))
         {
-
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            // rb.rotation = rb.rotation + 90;
-
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); // Corrected to `velocity`
         }
 
-        if (timeToRespawn == 1){
+        // Respawn logic if the time to respawn has reached 1
+        if (timeToRespawn == 1)
+        {
             transform.position = respawnPoint.transform.position;
         }
 
-        if (timeToRespawn > 0){
+        if (timeToRespawn > 0)
+        {
             timeToRespawn--;
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision){
-        if (collision.gameObject.CompareTag("Spike")){
+    // Handle collisions with spikes
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Spike"))
+        {
             Die();
         }
     }
 
-
-    //Currently issues with spawning multiple particles when landing on multiple spikes - Im working on it
-    void Die(){
-        
-        GameObject particles = Instantiate(deathParticles);
-        if (timeToRespawn == 0){
-            particles.transform.position = transform.position;
+    // Handle player death
+    void Die()
+    {
+        if (timeToRespawn == 0)  // Only spawn particles if not already respawning
+        {
+            GameObject particles = Instantiate(deathParticles, transform.position, Quaternion.identity);
         }
-        timeToRespawn = 15;
-        
-        
-        
+        timeToRespawn = 15;  // Set respawn time
     }
 
+    // Visualize the ground check area in the editor
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(rb.position + groundCheckOffset, groundCheckSize);
