@@ -61,6 +61,13 @@ public class PlayerController : MonoBehaviour
         {
             timeToRespawn--;
         }
+        for (int i = 0; i < 9; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
+            {
+                battery.addPower(i);  // Calls battery boost on the corresponding power slot
+            }
+        }
     }
 
     // Handle collisions with spikes
