@@ -5,16 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject respawnPoint;
 
     public int power = 10;              // Power slots for Battery
     public float moveSpeed = 5f;       // Movement speed
     public float jumpForce = 7f;       // Jump force
     public Light2D globalLight;        // Global light reference
     public Rigidbody2D rb;             // Rigidbody2D component
+
+    public SpriteRenderer spriteRender; // Reference to sprite renderer
+
+    public Sprite deathSprite;  //Sprite to swap to when dead
+    
+    public GameObject playerLight; //Reference to light on player
     public Battery battery;            // Reference to the Battery component
     public bool LeftRightUnlocked = true;
     public bool JumpUnlocked = true;
+
+
+    public AudioSource sound; // Reference to audio source
+    public AudioClip deathSound; // Death sound effect
+    public AudioClip jumpSound; // Jump sound effect
+
 
     public GameObject deathParticles;  // Death particle effect
 
@@ -36,7 +47,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Handle horizontal movement
-        if (LeftRightUnlocked)
+        if (LeftRightUnlocked && timeToRespawn == 0)
         {
             float moveInput = Input.GetAxis("Horizontal");
             if (moveInput != 0)
@@ -46,11 +57,23 @@ public class PlayerController : MonoBehaviour
         }
 
         // Handle jumping
-        if (JumpUnlocked && Input.GetButtonDown("Jump") && Physics2D.OverlapBox(rb.position + groundCheckOffset, groundCheckSize, 0f, groundMask))
+        if (timeToRespawn == 0 && JumpUnlocked && Input.GetButtonDown("Jump") && Physics2D.OverlapBox(rb.position + groundCheckOffset, groundCheckSize, 0f, groundMask))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); // Corrected to `velocity`
+            sound.PlayOneShot(jumpSound);
         }
 
+
+        for (int i = 0; i < 9; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i ))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
+            {
+                battery.addPower(i);  // Calls battery boost on the corresponding power slot
+            }
+        }
+    }
+
+    void FixedUpdate(){
         // Respawn logic if the time to respawn has reached 1
         if (timeToRespawn == 1)
         {
@@ -60,13 +83,6 @@ public class PlayerController : MonoBehaviour
         if (timeToRespawn > 0)
         {
             timeToRespawn--;
-        }
-        for (int i = 0; i < 9; i++)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i ))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
-            {
-                battery.addPower(i);  // Calls battery boost on the corresponding power slot
-            }
         }
     }
 
@@ -86,7 +102,10 @@ public class PlayerController : MonoBehaviour
         {
             GameObject particles = Instantiate(deathParticles, transform.position, Quaternion.identity);
         }
-        timeToRespawn = 30;  // Set respawn time
+        timeToRespawn = 60;  // Set respawn time
+        sound.PlayOneShot(deathSound);
+        spriteRender.sprite = deathSprite;
+        Destroy(playerLight);
     }
 
     // Visualize the ground check area in the editor

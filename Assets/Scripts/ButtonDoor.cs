@@ -21,7 +21,7 @@ public class ButtonDoor : MonoBehaviour
         sr = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    void Update(){
+    void FixedUpdate(){
         if (isPressed && !moved){
             transform.position = transform.position;
             if (horizontal){
