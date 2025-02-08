@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour{
+    public GameObject respawnPoint;
 
     public int power = 1;
     public float moveSpeed = 5f;
@@ -38,5 +39,9 @@ public class PlayerController : MonoBehaviour{
             // rb.rotation = rb.rotation + 90;
 
         }
+    }
+
+    void Die(){
+        transform.position = respawnPoint.transform.position;
     }
 }
