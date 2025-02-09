@@ -4,6 +4,8 @@ public abstract class Power : MonoBehaviour
 {
     protected int energyStored;
     private int maxMagnitude;
+
+    private GUIStyle currentStyle;
     private bool isOn;
 
     // Constructor-like initializer (Unity doesn't support constructors in MonoBehaviour)
@@ -65,14 +67,31 @@ public abstract class Power : MonoBehaviour
         }
     }
 
-
+Texture2D MakeTex( int width, int height, Color col )
+{
+    Color[] pix = new Color[width * height];
+    for( int i = 0; i < pix.Length; ++i )
+    {
+        pix[ i ] = col;
+    }
+    Texture2D result = new Texture2D( width, height );
+    result.SetPixels( pix );
+    result.Apply();
+    return result;
+}
     private void drawBar(Rect rect, Color color)
     {
-        GUI.color = color;
-        GUI.Box(rect, GUIContent.none);
-        GUI.color = Color.white;
+        InitStyles(color);
+        GUI.Box(rect, "",currentStyle );
     }
+
+    private void InitStyles(Color color)
+{
+    currentStyle = new GUIStyle( GUI.skin.box );
+    currentStyle.normal.background = MakeTex( 2, 2, color);
+}
 
     public int GetEnergyStored() => energyStored;
     public int GetMaxMagnitude() => maxMagnitude;
+
 }

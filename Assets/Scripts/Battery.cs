@@ -17,9 +17,10 @@ public class Battery : MonoBehaviour
         {
             GameObject powerObject = new GameObject($"Power_{i}");  // Create a new GameObject for each Power
             powerObject.transform.parent = this.transform;  // Attach to the Battery GameObject
+            powerObject.transform.position = new Vector3(powerObject.transform.position.x - i * 10,powerObject.transform.position.y,powerObject.transform.position.z);
             Power newPower = powerObject.AddComponent<HorizontalMovement>();  // Example subclass
 
-            newPower.Initialize(2, isOnList[i]);
+            newPower.Initialize(3, isOnList[i]);
             powers[i] = newPower;
         }
     }
@@ -37,26 +38,26 @@ public class Battery : MonoBehaviour
         {
             if (powers[i] != null)
             {
-                powers[i].drawBars(i, 0);  // PowerTypeOffset = 0 since only one type for now
+                powers[i].drawBars(i, 0);  // PowerTypeOffset = 0 since only one type for now TODO: No longer 0
             }
         }
     }
 
     public bool addPower(int index)
     {
-        Debug.Log(index);
         if (index >= powers.Length || powers[index] == null || energyPool <= 0)
         {
-            Debug.Log(index);
+            Debug.Log(index + "false");
             return false;
         }
 
         if (powers[index].addPower())
         {
             energyPool--;  // Reduce available energy
+            OnGUI();
             return true;
+
         }
-        Debug.Log(index);
 
         return false;
     }
@@ -71,6 +72,7 @@ public class Battery : MonoBehaviour
         if (powers[index].remPower())
         {
             energyPool++;  // Return energy to the pool
+            OnGUI();
             return true;
         }
 

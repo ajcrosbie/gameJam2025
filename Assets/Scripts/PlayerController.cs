@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i ))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
             {
+                Debug.Log(i);
                 battery.addPower(i);  // Calls battery boost on the corresponding power slot
             }
         }
@@ -101,8 +102,10 @@ public class PlayerController : MonoBehaviour
         if (timeToRespawn == 0)  // Only spawn particles if not already respawning
         {
             GameObject particles = Instantiate(deathParticles, transform.position, Quaternion.identity);
+            // Set respawn time
+            timeToRespawn = 60;
         }
-        timeToRespawn = 60;  // Set respawn time
+         
         sound.PlayOneShot(deathSound);
         spriteRender.sprite = deathSprite;
         Destroy(playerLight);
