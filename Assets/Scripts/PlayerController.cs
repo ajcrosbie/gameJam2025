@@ -71,15 +71,21 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i ))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
             {
+                bool worked;
                 if (Input.GetKey(KeyCode.LeftShift)){
-                    battery.removePower(i);
+                    worked = battery.removePower(i);
                 }else{
-                    battery.addPower(i);  // Calls battery boost on the corresponding power slot
+                    worked = battery.addPower(i);  // Calls battery boost on the corresponding power slot
                 }
+            }
+            if (!worked){
+                indicateFailed();
             }
         }
     }
-
+    void indicateFailed(){
+        // 
+    }
     void FixedUpdate(){
         // Respawn logic if the time to respawn has reached 1
         if (timeToRespawn == 1)
