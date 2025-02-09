@@ -20,11 +20,12 @@ public class Battery : MonoBehaviour
             powerObject.transform.position = new Vector3(powerObject.transform.position.x - i * 10,powerObject.transform.position.y,powerObject.transform.position.z);
             Power newPower;
             if (i==0){
-                newPower = powerObject.AddComponent<HorizontalMovement>();  // Example subclass
+                newPower = powerObject.AddComponent<HorizontalMovement>();  // Change speed
 
-            } else{
-                Debug.Log("Sight");
+            } else if (i == 1){
                 newPower = powerObject.AddComponent<sightEnable>();  // Change Sight
+            } else {
+                newPower = powerObject.AddComponent<verticalMovement>();  // Change jump height
             }
 
             newPower.Initialize(3, isOnList[i]);

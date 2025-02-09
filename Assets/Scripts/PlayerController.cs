@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
     public Sprite deathSprite;  //Sprite to swap to when dead
     
-    public GameObject playerLight; //Reference to light on player
     public Battery battery;            // Reference to the Battery component
     public bool LeftRightUnlocked = true;
     public bool JumpUnlocked = true;
@@ -39,7 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         // Add the Battery component to the Player and initialize it
         battery = gameObject.AddComponent<Battery>();
-        battery.InitializeBattery(power, new bool[] { true, true }); // Initialize battery with the powers
+        battery.InitializeBattery(power, new bool[] { true, true, true }); // Initialize battery with the powers
 
         groundMask = LayerMask.GetMask("Ground") + LayerMask.GetMask("Default");
     }
@@ -47,6 +46,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveSpeed = battery.powers[0].getMagnitude();
+        jumpForce = battery.powers[2].getMagnitude();
         // Handle horizontal movement
         if (LeftRightUnlocked && timeToRespawn == 0)
         {
@@ -61,7 +61,9 @@ public class PlayerController : MonoBehaviour
         if (timeToRespawn == 0 && JumpUnlocked && Input.GetButtonDown("Jump") && Physics2D.OverlapBox(rb.position + groundCheckOffset, groundCheckSize, 0f, groundMask))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); // Corrected to `velocity`
-            sound.PlayOneShot(jumpSound);
+            if (jumpForce > 0f){
+                sound.PlayOneShot(jumpSound);
+            }
         }
 
 
@@ -112,12 +114,15 @@ public class PlayerController : MonoBehaviour
          
         sound.PlayOneShot(deathSound);
         spriteRender.sprite = deathSprite;
-        Destroy(playerLight);
     }
 
     // Visualize the ground check area in the editor
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(rb.position + groundCheckOffset, groundCheckSize);
+    }
+
+    public int GetTimeToRespawn(){
+        return timeToRespawn;
     }
 }
