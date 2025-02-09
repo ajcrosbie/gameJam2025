@@ -1637,11 +1637,11 @@ PrefabInstance:
       objectReference: {fileID: 1102379778}
     - target: {fileID: 7919535576744586950, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
       propertyPath: doorSpeed
-      value: 0.005
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7919535576744586950, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
       propertyPath: horizontal
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8170347606014837351, guid: 7bc6f1e58b9a1e442ac71b730f848dd4, type: 3}
       propertyPath: m_LocalPosition.x
