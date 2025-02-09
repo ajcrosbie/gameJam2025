@@ -83,9 +83,9 @@ public class PlayerController : MonoBehaviour
                     worked = battery.addPower(i);  // Calls battery boost on the corresponding power slot
                 }
             }
-            //if (!worked){
-            //    indicateFailed();
-            //}
+            if (!worked){
+               indicateFailed();
+            }
         }
 
         if (frownCooldown == 1){
@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour
         frownCooldown = 120;
         sound.PlayOneShot(rejectSound);
     }
+
     void FixedUpdate(){
         // Respawn logic if the time to respawn has reached 1
         if (timeToRespawn == 1)

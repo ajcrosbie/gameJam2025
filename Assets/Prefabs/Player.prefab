@@ -523,11 +523,14 @@ MonoBehaviour:
   rb: {fileID: 3248369415219121856}
   spriteRender: {fileID: 1203422290858624232}
   deathSprite: {fileID: 867358460, guid: f43622b1f4244974d80c99a67a6cf7f4, type: 3}
+  normSprite: {fileID: -2311659948842064771, guid: f43622b1f4244974d80c99a67a6cf7f4, type: 3}
+  frownSprite: {fileID: 120983827, guid: f43622b1f4244974d80c99a67a6cf7f4, type: 3}
   battery: {fileID: 0}
   LeftRightUnlocked: 1
   JumpUnlocked: 1
   sound: {fileID: 0}
   deathSound: {fileID: 8300000, guid: ad9a403b9321aac409a24800cea4c389, type: 3}
+  rejectSound: {fileID: 8300000, guid: 59fc2b21c5cf0db4d9dfb58fb30b93e9, type: 3}
   jumpSound: {fileID: 8300000, guid: b014fd4aaf246d44bbf3c95c8e2c719a, type: 3}
   deathParticles: {fileID: 6835600771144584867, guid: bd2b14e75eea10c45bde001ba0045c72, type: 3}
   groundCheckOffset: {x: 0, y: -0.23}
