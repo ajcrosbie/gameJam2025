@@ -78,9 +78,9 @@ public class PlayerController : MonoBehaviour
                     worked = battery.addPower(i);  // Calls battery boost on the corresponding power slot
                 }
             }
-            if (!worked){
-                indicateFailed();
-            }
+            //if (!worked){
+            //    indicateFailed();
+            //}
         }
     }
     void indicateFailed(){
