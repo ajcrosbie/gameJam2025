@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         // Add the Battery component to the Player and initialize it
         battery = gameObject.AddComponent<Battery>();
-        battery.InitializeBattery(power, new bool[] { true }); // Initialize battery with the powers
+        battery.InitializeBattery(power, new bool[] { true, true }); // Initialize battery with the powers
 
         groundMask = LayerMask.GetMask("Ground") + LayerMask.GetMask("Default");
     }

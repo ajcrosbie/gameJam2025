@@ -18,7 +18,14 @@ public class Battery : MonoBehaviour
             GameObject powerObject = new GameObject($"Power_{i}");  // Create a new GameObject for each Power
             powerObject.transform.parent = this.transform;  // Attach to the Battery GameObject
             powerObject.transform.position = new Vector3(powerObject.transform.position.x - i * 10,powerObject.transform.position.y,powerObject.transform.position.z);
-            Power newPower = powerObject.AddComponent<HorizontalMovement>();  // Example subclass
+            Power newPower;
+            if (i==0){
+                newPower = powerObject.AddComponent<HorizontalMovement>();  // Example subclass
+
+            } else{
+                Debug.Log("Sight");
+                newPower = powerObject.AddComponent<sightEnable>();  // Change Sight
+            }
 
             newPower.Initialize(3, isOnList[i]);
             powers[i] = newPower;
@@ -38,7 +45,7 @@ public class Battery : MonoBehaviour
         {
             if (powers[i] != null)
             {
-                powers[i].drawBars(i, 0);  // PowerTypeOffset = 0 since only one type for now TODO: No longer 0
+                powers[i].drawBars(i, i);  // PowerTypeOffset = 0 since only one type for now TODO: No longer 0
             }
         }
     }
