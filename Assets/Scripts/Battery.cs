@@ -47,14 +47,12 @@ public class Battery : MonoBehaviour
     {
         if (index >= powers.Length || powers[index] == null || energyPool <= 0)
         {
-            Debug.Log(index + "false");
             return false;
         }
 
         if (powers[index].addPower())
         {
             energyPool--;  // Reduce available energy
-            OnGUI();
             return true;
 
         }
@@ -72,7 +70,7 @@ public class Battery : MonoBehaviour
         if (powers[index].remPower())
         {
             energyPool++;  // Return energy to the pool
-            OnGUI();
+
             return true;
         }
 

@@ -12,4 +12,5 @@ public class HorizontalMovement : Power
     {
         return energyStored * 5f;
     }
+
 }

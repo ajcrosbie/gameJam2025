@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        moveSpeed = battery.powers[0].getMagnitude();
         // Handle horizontal movement
         if (LeftRightUnlocked && timeToRespawn == 0)
         {
@@ -68,8 +69,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i ))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
             {
-                Debug.Log(i);
-                battery.addPower(i);  // Calls battery boost on the corresponding power slot
+                if (Input.GetKey(KeyCode.LeftShift)){
+                    battery.removePower(i);
+                }else{
+                    battery.addPower(i);  // Calls battery boost on the corresponding power slot
+                }
             }
         }
     }
