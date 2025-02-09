@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRender; // Reference to sprite renderer
 
     public Sprite deathSprite;  //Sprite to swap to when dead
+    public Sprite normSprite; // Normal Sprite
+    public Sprite frownSprite;
+
+    private int frownCooldown;
     
     public Battery battery;            // Reference to the Battery component
     public bool LeftRightUnlocked = true;
@@ -80,12 +84,21 @@ public class PlayerController : MonoBehaviour
                 }
             }
             if (!worked){
-                sound.PlayOneShot(rejectSound);
+                indicateFailed();
             }
+        }
+
+        if (frownCooldown == 1){
+            spriteRender.sprite = normSprite;
+        }
+        if (frownCooldown > 0){
+            frownCooldown--;
         }
     }
     void indicateFailed(){
-        // 
+        spriteRender.sprite = frownSprite;
+        frownCooldown = 120;
+        sound.PlayOneShot(rejectSound);
     }
     void FixedUpdate(){
         // Respawn logic if the time to respawn has reached 1
