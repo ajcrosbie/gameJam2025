@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource sound; // Reference to audio source
     public AudioClip deathSound; // Death sound effect
+    public AudioClip rejectSound; // Full/empty sound effect
     public AudioClip jumpSound; // Jump sound effect
 
 
@@ -79,7 +80,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             if (!worked){
-                indicateFailed();
+                sound.PlayOneShot(rejectSound);
             }
         }
     }
