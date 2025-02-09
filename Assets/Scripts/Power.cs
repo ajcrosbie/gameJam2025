@@ -56,7 +56,7 @@ public abstract class Power : MonoBehaviour
 
         // Align to the top-right corner of the screen
         int startX = Screen.width - (powerTypeOffset + 1) * horizontalSpacing;  // Moves power types to the left
-        int startY = 10 + powerIndex * verticalSpacing;  // Stacks batteries downward
+        int startY = 10;  // Stacks batteries downward
 
         for (int i = 0; i < maxMagnitude; i++)
         {
