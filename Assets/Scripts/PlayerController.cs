@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRender; // Reference to sprite renderer
 
     public Sprite deathSprite;  //Sprite to swap to when dead
+    public Sprite normSprite; // Normal Sprite
+    public Sprite frownSprite;
+
+    private int frownCooldown;
     
     public Battery battery;            // Reference to the Battery component
     public bool LeftRightUnlocked = true;
@@ -23,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource sound; // Reference to audio source
     public AudioClip deathSound; // Death sound effect
+    public AudioClip rejectSound; // Full/empty sound effect
     public AudioClip jumpSound; // Jump sound effect
 
 
@@ -78,13 +83,22 @@ public class PlayerController : MonoBehaviour
                     worked = battery.addPower(i);  // Calls battery boost on the corresponding power slot
                 }
             }
-            if (!worked){
-                indicateFailed();
-            }
+            //if (!worked){
+            //    indicateFailed();
+            //}
+        }
+
+        if (frownCooldown == 1){
+            spriteRender.sprite = normSprite;
+        }
+        if (frownCooldown > 0){
+            frownCooldown--;
         }
     }
     void indicateFailed(){
-        // 
+        spriteRender.sprite = frownSprite;
+        frownCooldown = 120;
+        sound.PlayOneShot(rejectSound);
     }
     void FixedUpdate(){
         // Respawn logic if the time to respawn has reached 1
