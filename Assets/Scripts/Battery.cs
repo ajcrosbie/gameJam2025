@@ -45,7 +45,7 @@ public class Battery : MonoBehaviour
 
         for (int i = 0; i < powers.Length; i++)
         {
-            if (powers[i] != null)
+            if (powers[i] != null && !powers[i].GetIsOn())
             {
                 powers[i].drawBars((powers.Length- i), (powers.Length- i));  // PowerTypeOffset = 0 since only one type for now TODO: No longer 0
             }
