@@ -10,6 +10,9 @@ public class HorizontalMovement : Power
 
     public override float getMagnitude()
     {
+        if (energyStored == 3){
+            return 20f;
+        }
         return energyStored * 5f;
     }
 
