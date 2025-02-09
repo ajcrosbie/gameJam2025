@@ -93,6 +93,6 @@ Texture2D MakeTex( int width, int height, Color col )
 
     public int GetEnergyStored() => energyStored;
     public int GetMaxMagnitude() => maxMagnitude;
-
+    public bool GetIsOn() => isOn;
 
 }

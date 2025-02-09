@@ -70,9 +70,9 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < 9; i++)
         {
+            bool worked = true;
             if (Input.GetKeyDown(KeyCode.Alpha1 + i ))  // KeyCode.Alpha1 corresponds to "1", Alpha2 to "2", etc.
             {
-                bool worked;
                 if (Input.GetKey(KeyCode.LeftShift)){
                     worked = battery.removePower(i);
                 }else{
